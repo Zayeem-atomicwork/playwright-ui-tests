@@ -27,11 +27,6 @@ if [[ -n "${PASSWORD:-}" ]]; then
 	mvn_cmd="${mvn_cmd} -Dpassword=${PASSWORD}"
 fi
 
-# If ANALYTICS_API_KEY variable is non-empty, add it to the maven command.
-if [[ -n "${ANALYTICS_API_KEY:-}" ]]; then
-	mvn_cmd="${mvn_cmd} -DapiKey=${ANALYTICS_API_KEY}"
-fi
-
 : '
 If TAGS variable is non-empty, tests with these tags will run, else, check 
 for TEST_RUNNERS variable, if non-empty, all test runners will be triggered
