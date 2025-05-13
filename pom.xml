@@ -1,0 +1,214 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.atomicwork</groupId>
+    <artifactId>ui-tests</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>AtomicWorkPortal UI Tests</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>13</maven.compiler.release>
+		<project-name>UI Tests</project-name>
+		<maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
+		<playwright-java-version>1.40.0</playwright-java-version>
+		<testng-version>7.3.0</testng-version>
+		<cucumber-java-version>6.9.1</cucumber-java-version>
+		<cucumber-jvm-deps-version>1.0.6</cucumber-jvm-deps-version>
+		<cucumber-testng-version>6.9.1</cucumber-testng-version>
+		<cucumber-reporting-version>5.5.2</cucumber-reporting-version>
+		<maven-surefire-plugin-version>3.0.0-M5</maven-surefire-plugin-version>
+		<cucumber-picocontainer-version>6.9.1</cucumber-picocontainer-version>
+		<commons-lang3-version>3.11</commons-lang3-version>
+		<rest-assured-version>4.3.3</rest-assured-version>
+		<jackson-databind-version>2.12.1</jackson-databind-version>
+		<jackson-dataformat-yaml-version>2.12.1</jackson-dataformat-yaml-version>
+		<scenarioThreadCount>1</scenarioThreadCount>
+		<featureThreadCount>1</featureThreadCount>
+	</properties>
+
+	<dependencies>
+		<!-- Playwright automates browsers. -->
+		<dependency>
+			<groupId>com.microsoft.playwright</groupId>
+			<artifactId>playwright</artifactId>
+			<version>${playwright-java-version}</version>
+		</dependency>
+		<!-- Testing framework for Java -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng-version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Cucumber JVM: Java -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber-java-version}</version>
+		</dependency>
+		<!-- Cucumber JVM Repackaged Dependencies -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-jvm-deps</artifactId>
+			<version>1.0.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Cucumber JVM: TestNG -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>${cucumber-testng-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Cucumber JVM: PicoContainer -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>${cucumber-picocontainer-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Provides pretty HTML reports for Cucumber. It works by generating
+        HTML from the cucumber JSON file. -->
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>${cucumber-reporting-version}</version>
+		</dependency>
+		<!-- Apache Commons Lang, a package of Java utility classes for the classes 
+			that are in java.lang's hierarchy, or are considered to be so standard as 
+			to justify existence in java.lang. -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3-version}</version>
+		</dependency>
+		<!-- Java DSL for easy testing of REST services -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured-version}</version>
+		</dependency>
+		<!-- General data-binding functionality for Jackson: works on core streaming 
+			API -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-databind-version}</version>
+		</dependency>
+		<!-- Jackson dataformat module for YAML -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>${jackson-dataformat-yaml-version}</version>
+		</dependency>
+		<!-- Add SLF4J and Log4j for logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.32</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.14.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.14.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.14.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- The Compiler Plugin is used to compile the sources of your project. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin-version}</version>
+				<configuration>
+					<release>${maven.compiler.release}</release>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- Maven surefire plugin configuration lets us define which tests to 
+				execute when we run the maven build. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin-version}</version>
+				<configuration>
+					<forkCount>1</forkCount>
+					<!-- File containing system properties to pass to the tests. -->
+					<systemPropertiesFile>src/test/resources/config/system_variables.properties</systemPropertiesFile>
+					<!-- To continue the maven execution in case of test failures. -->
+					<testFailureIgnore>true</testFailureIgnore>
+					<!-- To disable the XML report generated by the plugin -->
+					<disableXmlReport>true</disableXmlReport>
+					<!-- Path of the directory where reports will be generated -->
+					<reportsDirectory>${project.build.directory}/reports/maven-surefire-reports</reportsDirectory>
+					<properties>
+						<!-- This sets the number of scenarios (defined by a test runner class) 
+							to be run in parallel. -->
+						<property>
+							<name>dataproviderthreadcount</name>
+							<value>${scenarioThreadCount}</value>
+						</property>
+						<!-- E.g. The maximum total thread count is set at 18, if scenarioThreadCount=6 
+							and featureThreadCount=3 (number of test runners running in parallel). -->
+						<property>
+							<name>parallel</name>
+							<value>classes</value>
+						</property>
+						<!-- This sets the number of test runners/features to be run in parallel. -->
+						<property>
+							<name>threadcount</name>
+							<value>${featureThreadCount}</value>
+						</property>
+					</properties>
+				</configuration>
+			</plugin>
+			<!-- Playwright browser installation plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>install-browsers</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>com.microsoft.playwright.CLI</mainClass>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.microsoft.playwright</groupId>
+						<artifactId>playwright</artifactId>
+						<version>${playwright-java-version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>

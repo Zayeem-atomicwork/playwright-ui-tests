@@ -1,0 +1,26 @@
+# Dashboard configurations
+dashboard:
+  esd:
+    e2e:
+      loginPageUrl: "https://e2e-esd.atomicworkportal.com/login"
+      email: "test.user@example.com"
+      password: "securePassword123"
+    prod:
+      loginPageUrl: https://zayeem.atomicwork.com
+      email: zayeem@atomicwork.com
+      password: zayeem@456
+    stage:
+      loginPageUrl: https://zayeem.atomicworkm2.com/
+      email: zayeem@atomicwork.com
+      password: zayeem@123
+
+
+# Browser configurations
+browser:
+  type: "chrome"  # chrome, firefox, webkit
+  headless: true
+  deleteCookies: true
+  windowMaximize: true
+  implicitWaitTime: 5  # seconds
+  explicitWaitTime: 10  # seconds
+  dimension: 1440, 1000  # width, height
